@@ -11,6 +11,7 @@ const TaskBoard = () => {
 
   useEffect(() => {
   const token = localStorage.getItem("token");
+  const user = JSON.parse(localStorage.getItem("user"));
   if (!token) return;
 
   const s = io("http://localhost:4000", { auth: { token } });
@@ -62,12 +63,12 @@ const TaskBoard = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 p-4 w-full">
+    <div className="flex flex-col rounded-xl text-white bg-gradient-to-br from-amber-400 to-amber-700 gap-4 p-4 w-full">
       <input
         type="text"
         placeholder="New task..."
         onKeyDown={(e) => e.key === "Enter" && addTask(e.target.value)}
-        className="border p-2 rounded w-full"
+        className="border-2 border-gray-800 p-2 rounded-xl w-full  placeholder-gray-300"
       />
 
       <DragDropContext onDragEnd={onDragEnd}>

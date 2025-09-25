@@ -8,7 +8,7 @@ const TaskItem = ({ task, index }) => {
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          className="bg-white p-2 mb-2 rounded shadow cursor-pointer"
+          className="bg-black p-2 mb-2 rounded shadow cursor-pointer"
         >
           {task.title}
         </div>
