@@ -101,6 +101,10 @@ function getOrCreateDoc(room) {
   return ydoc;
 }
 
+app.get("/", (req, res) => {
+  res.send("🚀 Remote Collab WebSocket Backend is running");
+});
+
 /**
  * WebSocket connection handler
  */
