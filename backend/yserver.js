@@ -131,7 +131,8 @@ wss.on("connection", async (conn, req) => {
 });
 
 
-const PORT = process.env.PORT || 1234;
+const PORT = process.env.PORT || 4000; // fallback for local dev
 server.listen(PORT, () =>
   console.log(`🚀 y-websocket server listening on port ${PORT}`)
 );
+
