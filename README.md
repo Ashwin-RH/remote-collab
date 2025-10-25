@@ -8,7 +8,7 @@ A full-stack, browser-based platform designed to streamline collaboration among 
 
 ## 🚀 Project Overview
 
-The **Remote Work Collaboration Suite** aims to provide a unified solution for distributed teams, enhancing productivity and communication through the following core modules:
+The **Remote Work Collaboration Suite** provides a unified solution for distributed teams, enhancing productivity and communication through the following core modules:
 
 ### 📝 Real-Time Document Collaboration
 - Collaborative editor powered by **Yjs (CRDT)** and **WebSocket (y-websocket)**.  
@@ -59,14 +59,14 @@ The **Remote Work Collaboration Suite** aims to provide a unified solution for d
 ### Prerequisites
 - Node.js (v16+)  
 - PostgreSQL  
-- Redis (for presence management)  
-- TURN/STUN servers for WebRTC (e.g., [coturn](https://github.com/coturn/coturn))
+- Redis (for presence management)
 
 ### Backend Setup
 1. Clone the repository:
    ```bash
    git clone https://github.com/Ashwin-RH/remote-collab.git
    cd remote-collab/backend
+
 
 2. Install Dependecies:
    ```bash
@@ -83,7 +83,7 @@ JWT_SECRET
    npm start
 ```
 
-###Frontend Setup
+### Frontend Setup
 
 1.Navigate to the frontend directory:
    ```bash
@@ -98,3 +98,18 @@ JWT_SECRET
    ```bash
 npm start
 ```
+
+### Testing
+
+- **Unit & Integration Tests**: Jest for backend services.
+- **End-to-End Tests**: Cypress for frontend testing.
+- **Real-Time Collaboration**: Manual testing with multiple users to ensure synchronization.
+
+
+### Deployment
+
+- **Frontend: Deployed on Vercel for seamless CI/CD integration.
+
+- **Backend: Dockerized for easy deployment on any platform.
+
+- **WebRTC Signaling Server: Configured with TURN/STUN servers for reliable peer-to-peer connections.
