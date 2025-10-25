@@ -63,7 +63,7 @@ global.onlineUsers = {}; // userId -> [socketIds]
 mongoose
   .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    console.log("✅ MongoDB Connected");
+    // console.log("✅ MongoDB Connected");
 
     // Start the server only after DB is ready
     const PORT = process.env.PORT || 4000;

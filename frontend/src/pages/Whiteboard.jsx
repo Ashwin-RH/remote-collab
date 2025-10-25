@@ -31,7 +31,9 @@ import {
 import { io } from "socket.io-client";
 import { nanoid } from "nanoid";
 
-const socket = io("http://localhost:4000");
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+
+const socket = io(API_URL);
 
 const TOOLS = {
   PEN: "pen",

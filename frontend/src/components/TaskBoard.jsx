@@ -148,7 +148,7 @@ useEffect(() => {
   />
 
   <DragDropContext onDragEnd={onDragEnd}>
-    <div className="flex flex-wrap justify-center md:justify-between gap-6">
+    <div className="flex flex-wrap justify-center md:justify-start gap-6">
       {columns.map((col) => (
         <TaskColumn
            key={col}

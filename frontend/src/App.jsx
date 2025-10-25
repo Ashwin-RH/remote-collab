@@ -4,6 +4,8 @@ import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import { Toaster } from "react-hot-toast"; // ✅ Import here
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+
 export default function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
@@ -17,7 +19,7 @@ export default function App() {
       }
 
       try {
-        const res = await fetch("http://localhost:4000/protected", {
+        const res = await fetch(`${API_URL}/protected`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.status === 200) setLoading(false);

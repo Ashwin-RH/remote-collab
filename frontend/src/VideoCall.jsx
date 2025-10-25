@@ -14,6 +14,9 @@ import { io } from "socket.io-client";
 import Timer from "./Timer";
 
 import { Workspace } from "../../backend/models/Workspace";
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+
 export default function VideoCall({ workspaceId, user, socket }) {
   const localVideoRef = useRef(null);
   const localStreamRef = useRef(null);
@@ -36,7 +39,7 @@ export default function VideoCall({ workspaceId, user, socket }) {
     console.log("workspaceId:", workspaceId);
 
 
-    const socket = io("http://localhost:4000", {
+    const socket = io(API_URL, {
       auth: { token: localStorage.getItem("token") },
     });
     socketRef.current = socket;

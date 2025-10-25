@@ -1,5 +1,5 @@
 // src/pages/Dashboard.jsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Panel, PanelGroup } from "react-resizable-panels";
 import { getSocket } from "../socket";
 import axios from "axios";
@@ -20,41 +20,10 @@ import Whiteboard from "./Whiteboard";
 // -----------------------
 // Invite Modal Logic
 // -----------------------
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
 
-const sendInvite = async () => {
-  if (!email.trim()) {
-    setStatus("Please enter a valid email");
-    return;
-  }
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    setStatus("Invalid email format");
-    return;
-  }
-
-  setLoading(true);
-  try {
-    const token = localStorage.getItem("token");
-    const res = await axios.post(
-      `http://localhost:4000/workspace/${activeWorkspace._id}/invite`,
-      { email },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-
-    toast.success(res.data.message);
-    setStatus(res.data.message);
-    setEmail("");
-  } catch (err) {
-    console.error("Invite error:", err);
-    toast.error(err.response?.data?.message || "Failed to send invite");
-    setStatus(err.response?.data?.message || "Failed to send invite");
-  } finally {
-    setLoading(false);
-    setTimeout(() => setStatus(""), 4000);
-  }
-};
 
 
 
@@ -76,6 +45,39 @@ const [email, setEmail] = useState("");
 const [status, setStatus] = useState("");
 const [loading, setLoading] = useState(false);
 
+const sendInvite = async () => {
+  if (!email.trim()) {
+    setStatus("Please enter a valid email");
+    return;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    setStatus("Invalid email format");
+    return;
+  }
+
+  setLoading(true);
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.post(
+      `${API_URL}/workspace/${activeWorkspace._id}/invite`,
+      { email },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    toast.success(res.data.message);
+    setStatus(res.data.message);
+    setEmail("");
+  } catch (err) {
+    console.error("Invite error:", err);
+    toast.error(err.response?.data?.message || "Failed to send invite");
+    setStatus(err.response?.data?.message || "Failed to send invite");
+  } finally {
+    setLoading(false);
+    setTimeout(() => setStatus(""), 4000);
+  }
+};
   // Construct user object from localStorage
 const userObj = {
   id: user?.id || localStorage.getItem("userId"),
@@ -87,7 +89,7 @@ const userObj = {
   try {
     const authToken = localStorage.getItem("token");
     const { data } = await axios.post(
-      `http://localhost:4000/workspace/join-with-token`,
+      `${API_URL}/workspace/join-with-token`,
       { token },
       { headers: { Authorization: `Bearer ${authToken}` } }
     );
@@ -110,7 +112,7 @@ const handleRejectInvite = async (token) => {
     // Optionally, you can notify backend about rejection
     const authToken = localStorage.getItem("token");
     await axios.post(
-      `http://localhost:4000/workspace/reject-invite`,
+      `${API_URL}/workspace/reject-invite`,
       { token },
       { headers: { Authorization: `Bearer ${authToken}` } }
     );
@@ -141,7 +143,7 @@ const handleRejectInvite = async (token) => {
   const fetchWorkspaces = async () => {
     try {
       const token = localStorage.getItem("token");
-      const { data } = await axios.get("http://localhost:4000/workspace", {
+      const { data } = await axios.get(`${API_URL}/workspace`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setWorkspaces(data.workspaces || []);
@@ -156,7 +158,7 @@ const handleRejectInvite = async (token) => {
   const fetchPendingInvites = async () => {
   try {
     const token = localStorage.getItem("token");
-    const { data } = await axios.get("http://localhost:4000/workspace/invites", {
+    const { data } = await axios.get(`${API_URL}/workspace/invites`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setPendingInvites(data.invites || []);
@@ -197,6 +199,26 @@ useEffect(() => {
     s.disconnect();
   };
 }, []);
+const firstLoad = useRef(true);
+const scrollRef = useRef(null);
+
+// ⬇️ NEW: scroll to top on first mount
+useEffect(() => {
+  if (scrollRef.current) {
+    scrollRef.current.scrollTo({ top: 0, behavior: "auto" });
+  }
+}, []);
+
+// ⬇️ Existing: scroll to top when switching workspace
+useEffect(() => {
+  if (firstLoad.current) {
+    firstLoad.current = false;
+    return;
+  }
+  if (scrollRef.current) {
+    scrollRef.current.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}, [activeWorkspace]);
 
 
   // -----------------------
@@ -219,7 +241,7 @@ useEffect(() => {
     try {
       const token = localStorage.getItem("token");
       const { data } = await axios.post(
-        "http://localhost:4000/workspace",
+        `${API_URL}/workspace`,
         { name },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -238,7 +260,7 @@ useEffect(() => {
     try {
       const token = localStorage.getItem("token");
       const { data } = await axios.put(
-        `http://localhost:4000/workspace/${ws._id}`,
+        `${API_URL}/workspace/${ws._id}`,
         { name },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -257,7 +279,7 @@ useEffect(() => {
 
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:4000/workspace/${ws._id}`, {
+      await axios.delete(`${API_URL}/workspace/${ws._id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setWorkspaces((prev) => prev.filter((w) => w._id !== ws._id));
@@ -273,7 +295,7 @@ useEffect(() => {
   // Render
   // -----------------------
   return (
-    <div className="relative bg-gray-900 text-white h-screen w-screen py-8  overflow-auto">
+    <div ref={scrollRef} className="relative flex flex-col bg-gray-900 text-white h-screen w-screen py-3  overflow-auto">
       {/* Header */}
       <div className="flex z-60 hover:scale-102 transition-all duration-500 justify-between rounded-2xl mx-4 my-4 border-2 items-center p-4 bg-gray-950/50 border-gray-700 shadow-2xl shadow-blue-900/10 hover:shadow-2xl hover:shadow-blue-500/20">
         <h2 className="text-xl font-bold">
@@ -281,7 +303,7 @@ useEffect(() => {
         </h2>
         <button
           onClick={handleLogout}
-          className="px-3 py-1 bg-red-600 rounded hover:bg-red-700"
+          className="px-3 py-1 bg-red-600 rounded cursor-pointer hover:bg-red-700"
         >
           <LogOut />
         </button>
@@ -477,7 +499,7 @@ useEffect(() => {
                   {isOwner && (
                     <div className="relative ml-2 z-50">
                       <button
-                        className="p-1 rounded  hover:bg-gray-800"
+                        className="p-1 rounded  hover:bg-gray-800 cursor-pointer transition-colors"
                         onClick={(e) => {
                           e.stopPropagation();
                           setMenuOpen(
