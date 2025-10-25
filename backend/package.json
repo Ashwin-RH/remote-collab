@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"node server.js\" \"node yserver.js\"",
-    "dev": "concurrently \"nodemon server.js\" \"nodemon yserver.js\"",
+    "start": "npx concurrently \"node server.js\" \"node yserver.js\"",
+    "dev": "npx concurrently \"nodemon server.js\" \"nodemon yserver.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
