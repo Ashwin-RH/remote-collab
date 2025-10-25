@@ -108,8 +108,6 @@ npm start
 
 ### Deployment
 
-- **Frontend: Deployed on Vercel for seamless CI/CD integration.
-
-- **Backend: Dockerized for easy deployment on any platform.
-
-- **WebRTC Signaling Server: Configured with TURN/STUN servers for reliable peer-to-peer connections.
+- **Frontend**: Deployed on Vercel for seamless CI/CD integration.
+- **Backend**: Dockerized for easy deployment on any platform.
+- **WebRTC Signaling Server**: Configured with TURN/STUN servers for reliable peer-to-peer connections.
