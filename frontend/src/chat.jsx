@@ -101,6 +101,9 @@ useEffect(() => {
   socket.currentWorkspace = workspaceId;
 }, [socket, workspaceId]);
 
+useEffect(() => {
+  messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+}, [messages]);
 
 
   // --- Socket events ---

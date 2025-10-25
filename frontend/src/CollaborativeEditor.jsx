@@ -151,8 +151,17 @@ const MenuBar = ({ editor, toggleEmoji }) => {
   );
 };
 
+// Use env URL or fallback
+const defaultWsUrl = import.meta.env.VITE_API_URL
+  ? import.meta.env.VITE_API_URL.replace(/^http/, 'ws').replace(/^ws:/, 'wss:')
+  : "ws://localhost:1234";
+
+// Optional: hide console logs in production
+if (import.meta.env.PROD) {
+  console.log = () => {};
+}
 /* ---------- CollaborativeEditor ---------- */
-const CollaborativeEditor = ({ workspace, wsUrl = "ws://localhost:1234", user }) => {
+const CollaborativeEditor = ({ workspace, wsUrl = defaultWsUrl, user }) => {
   console.log("📘 CollaborativeEditor received workspace:", workspace);
 
   const ydocRef = useRef(null);
