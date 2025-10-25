@@ -4,3 +4,42 @@
   outline: none !important;
   box-shadow: none !important;
 }
+
+.scrollbar-overlay {
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Scrollbar track */
+.scrollbar-overlay::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-overlay::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Hide arrows */
+.scrollbar-overlay::-webkit-scrollbar-button {
+  display: none !important;
+}
+
+/* Scrollbar thumb */
+.scrollbar-overlay::-webkit-scrollbar-thumb {
+  background-color: #4ade80;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  opacity: 0;                 /* hidden by default */
+  transition: opacity 0.3s;
+}
+
+/* Show thumb on hover */
+.scrollbar-overlay:hover::-webkit-scrollbar-thumb {
+  opacity: 1;
+}
+
+/* Optional: always show thumb while scrolling */
+.scrollbar-overlay.scrolling::-webkit-scrollbar-thumb {
+  opacity: 1;
+}
+

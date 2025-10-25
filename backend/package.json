@@ -10,17 +10,22 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.20.0",
+    "mongoose": "^8.19.1",
     "nanoid": "^5.1.6",
+    "nodemailer": "^7.0.9",
     "socket.io": "^4.8.1",
-    "ws": "^8.18.3"
+    "ws": "^8.18.3",
+    "y-websocket": "^1.5.4"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10",
-    "y-websocket": "^3.0.0"
+    "nodemon": "^3.1.10"
   }
 }

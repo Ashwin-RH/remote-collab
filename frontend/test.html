@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <body style="background:#111;display:flex;justify-content:center;align-items:center;height:100vh;">
+    <video id="cam" autoplay playsinline muted style="border:2px solid lime;width:320px;height:240px;"></video>
+    <script>
+      async function testCam() {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ video:true, audio:true });
+          console.log("✅ Stream OK", stream);
+          document.getElementById("cam").srcObject = stream;
+        } catch (e) {
+          console.error("❌ getUserMedia error", e.name, e.message);
+        }
+      }
+      testCam();
+    </script>
+  </body>
+</html>
