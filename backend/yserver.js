@@ -127,7 +127,7 @@ wss.on("connection", async (conn, req) => {
   }
 
   const ydoc = getOrCreateDoc(room);
-  setupWSConnection(conn, req, { docMap: new Map([[room, ydoc]]), gc: true });
+  setupWSConnection(conn, req, { docMap: docs, gc: true });
 });
 
 

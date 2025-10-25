@@ -153,7 +153,7 @@ const MenuBar = ({ editor, toggleEmoji }) => {
 
 // Use Yjs WebSocket URL or fallback
 const defaultWsUrl = import.meta.env.VITE_YJS_WS_URL
-  ? import.meta.env.VITE_YJS_WS_URL.replace(/^https?/, 'wss')
+  ? import.meta.env.VITE_YJS_WS_URL
   : "ws://localhost:4000";
 
   // Optional: hide console logs in production
@@ -198,13 +198,16 @@ const CollaborativeEditor = ({ workspace, wsUrl = defaultWsUrl, user }) => {
     provider.on("status", (ev) => setConnected(ev.status === "connected"));
 
     const updateParticipants = () => {
-      const states = Array.from(awarenessRef.current.getStates().values())
-        .map(s => s.user)
-        .filter(Boolean);
-      setParticipants(states);
-    };
+  try {
+    const states = Array.from(awarenessRef.current.getStates().values())
+      .map(s => s.user)
+      .filter(Boolean);
+    setParticipants(states);
+  } catch(e) {
+    console.error("Awareness update error:", e);
+  }
+};
 
-    awarenessRef.current.on("change", updateParticipants);
     updateParticipants();
 
     // Initialize editor AFTER Y.Doc is ready
