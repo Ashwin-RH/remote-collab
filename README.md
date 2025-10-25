@@ -71,11 +71,16 @@ The **Remote Work Collaboration Suite** provides a unified solution for distribu
 2. Install Dependecies:
    ```bash
    npm install
-3.Configure environment variables:
+   
+3. Configure environment variables:
+- **Database Variables**:
+  - `DB_HOST`
+  - `DB_USER`
+  - `DB_PASS`
+  - `DB_NAME`
+- **Authentication**:
+  - `JWT_SECRET`
 
-DB_HOST, DB_USER, DB_PASS, DB_NAME
-
-REDIS_HOST, REDIS_PORT
 
 JWT_SECRET
 4. Run the backend server:
