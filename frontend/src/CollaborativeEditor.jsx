@@ -151,12 +151,10 @@ const MenuBar = ({ editor, toggleEmoji }) => {
   );
 };
 
-// Use env URL or fallback
-const defaultWsUrl = import.meta.env.VITE_API_URL
-  ? import.meta.env.VITE_API_URL.replace(/^https?/, 'wss')
-  : "ws://localhost:1234";
-
-
+// Use Yjs WebSocket URL or fallback
+const defaultWsUrl = import.meta.env.VITE_YJS_WS_URL
+  ? import.meta.env.VITE_YJS_WS_URL.replace(/^https?/, 'wss')
+  : "ws://localhost:4000";
 
   // Optional: hide console logs in production
   if (import.meta.env.PROD) {
