@@ -105,6 +105,7 @@ function getOrCreateDoc(room) {
  * WebSocket connection handler
  */
 wss.on("connection", async (conn, req) => {
+  console.log("New WS connection for URL:", req.url);
   const room = req.url.slice(1).split("?")[0] || "default";
 
   // Extract user token from query
