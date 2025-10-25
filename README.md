@@ -67,3 +67,34 @@ The **Remote Work Collaboration Suite** aims to provide a unified solution for d
    ```bash
    git clone https://github.com/Ashwin-RH/remote-collab.git
    cd remote-collab/backend
+
+2. Install Dependecies:
+   ```bash
+   npm install
+3.Configure environment variables:
+
+DB_HOST, DB_USER, DB_PASS, DB_NAME
+
+REDIS_HOST, REDIS_PORT
+
+JWT_SECRET
+4. Run the backend server:
+   ```bash
+   npm start
+```
+
+###Frontend Setup
+
+1.Navigate to the frontend directory:
+   ```bash
+   cd ../frontend
+   ```
+2.Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3.Run the frontend development server:
+   ```bash
+npm start
+```
