@@ -1,7 +1,8 @@
 import http from "http";
 import express from "express";
 import { WebSocketServer } from "ws";
-import { setupWSConnection } from "y-websocket/bin/utils.js"; // path depends on version
+import { setupWSConnection } from "y-websocket/bin/utils.js";
+
 import * as Y from "yjs";
 import dotenv from "dotenv";
 import { MongoClient, Binary } from "mongodb";
